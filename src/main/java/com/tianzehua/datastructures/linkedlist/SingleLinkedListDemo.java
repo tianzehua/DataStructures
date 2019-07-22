@@ -1,6 +1,7 @@
 package com.tianzehua.datastructures.linkedlist;
 
 
+import java.util.Stack;
 
 /**
  * 单链表应用---水浒传英雄排名
@@ -96,7 +97,13 @@ public class SingleLinkedListDemo {
 
         System.out.println("----------------------");
         /*从尾到头来打印单链表  */
-       // list.showList();
+        /*list.showList();*/
+
+        /* 方式1： 先将单链表进行反转，然后再遍历即可，这样做的问题是会破坏原来的单链表的结构，所以并不可取。*/
+        /* 方式2： 可以利用栈这个数据结构，将各个节点压入栈中，利用栈的先进后出的特点，就实现了逆序打印的效果；*/
+        list.reversePrint();
+
+
 
         System.out.println("----------------------");
         /* 合并两个有序的单链表，合并之后的链表仍然有序 */
@@ -322,6 +329,25 @@ class  SingleLinkedList{
             temp = temp2;
         }
         return list;
+    }
+
+    public void  reversePrint(){
+        /* 空链表,不能打印 */
+        if (head.next == null){
+            return;
+        }
+        /* 创建一个栈，将各节点压入栈 */
+        Stack<Node> stack = new Stack<>();
+        Node temp = head.next;
+        while (temp != null){
+            stack.push(temp);
+            temp = temp.next;
+        }
+        /* 将栈中的元素出栈。打印*/
+        while (stack.size() > 0){
+            Node node =  stack.pop();
+            System.out.println("编号：" + node.no + " 姓名：" + node.name);
+        }
     }
 
 
